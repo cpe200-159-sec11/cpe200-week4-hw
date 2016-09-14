@@ -44,7 +44,7 @@ public class Course {
                 System.out.println(s.getStudent_id()+" has enrolled in "+this.course_id+" successfully.");
                 return true;
             }
-            System.out.println(s.getStudent_id()+" has already enrolled in "+this.course_id);
+            System.out.println(s.getStudent_id()+" has already enrolled in "+this.course_id+".");
         } else {
             // print error message, and return value accordingly
             // implement your code here!!!
@@ -64,7 +64,7 @@ public class Course {
             System.out.println(s.getStudent_id() + " has been removed from " + this.course_id +" successfully.");
             return true;
         }
-        System.out.println(s.getStudent_id() + " is NOT enrolled in " + this.course_id);
+        System.out.println(s.getStudent_id() + " is NOT enrolled in " + this.course_id+".");
 
         return false;
     }
