@@ -30,8 +30,10 @@ public class PList {
             head = tail = null;
         else {
             head = head.next;
-            head.prev = null;
-            tmp.next = null;
+            if(head == null)
+                this.tail = this.head;
+            else
+                head.prev = null;
         }
 
         size--;
@@ -47,8 +49,10 @@ public class PList {
             tail = head = null;
         else {
             tail = tail.prev;
-            tail.next = null;
-            tmp.prev = null;
+            if(tail == null)
+                this.head = this.tail;
+            else
+                tail.next = null;
         }
 
         size--;
@@ -66,20 +70,18 @@ public class PList {
                 // case 1: head of the list
                 if(tmp == head)
                 {
-                    head = tmp.next;
-                    size--;
+                    popHead();
                     return true;
                 }
                 // case 2: tail of the list
                 if(tmp == tail)
                 {
-                    tail = tmp2;
-                    tail.next = null;
-                    size--;
+                    popTail();
                     return true;
                 }
                 // case 3: somewhere in the middle
                 tmp2.next = tmp.next;
+                tmp.next.prev = tmp2;
                 size--;
                 return true;
             }
