@@ -24,31 +24,44 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        course = new PList();
     }
 
     public boolean enrollStudent(Student s) {
-
+        // check if the course is FULL
         if (this.no_students < this.max_students) {
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
+            // check if the student has ALREADY enrolled in this course :: 580611701 has already enrolled in 261102.
+            if (course.found(s))
+            {
+                System.out.println(s.getStudent_id()+" has already enrolled in "+course_id+".");
+                return false;
+            }
             // add the student to the list of students (PList)
+            course.pushToTail(s);
             // update number of students in the course
-            // print message and return value accordingly
-
+            no_students += 1;
+            // print message and return value accordingly :: 580611701 has enrolled in 261102 successfully.
+            System.out.println(s.getStudent_id()+" has enrolled in "+course_id+" successfully.");
+            return true;
             // implement your code here!!!
-
         } else {
-            // print error message, and return value accordingly
+            // print error message, and return value accordingly :: 580611704 cannot enroll in this course, 261102 is full.
+            System.out.println(s.getStudent_id()+" cannot enroll in this course, "+course_id+" is full.");
             // implement your code here!!!
         }
-
         return false;
-
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
-
+        // implement your code here!!! :: 580611701 has been removed from 261102 successfully.
+        if (course.found(s))
+        {
+            course.remove(s);
+            no_students -= 1;
+            System.out.println(s.getStudent_id()+" has been removed from "+course_id+" successfully.");
+            return true;
+        } // 580611703 is NOT enrolled in 261200.
+        System.out.println(s.getStudent_id()+" is NOT enrolled in "+course_id+".");
         return false;
     }
 
@@ -109,7 +122,11 @@ public class Course {
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
-
+        // ::580611702 - S2
+        for (int i=0; i<course.getSize(); i++) {
+            Student s = (Student) course.elementAt(i);
+            o += s.getStudent_id()+" - "+s.getName();
+        }
         return o;
     }
 
@@ -131,5 +148,5 @@ public class Course {
 
     // add a list of enrolled students
     // implement your code here!!!
-
+    private PList course;
 }

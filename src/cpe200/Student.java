@@ -19,25 +19,29 @@ public class Student {
         this.student_id = isValidStudent_id(id)?id:"560610000";
         this.year_of_birth = isValidYOB(yob)?yob:1990;
         this.isActive = ia;
-
         // initialized the list for enrolled courses
         this.courses = new PList();
     }
 
     public boolean addCourse(Course c) {
-        if (c.enrollStudent(this)) {    // enroll the course with "this" student object
+        // enroll the course with "this" student object
+        if (c.enrollStudent(this)) {
             // add the new course to the list of enrolled courses (PList)
+            this.courses.pushToTail(c);
             // implement your code here!!!
-
             return true;
         } else
-            return false;               // if unable to enroll a student
+            return false; // if unable to enroll a student
     }
 
     public boolean dropCourse(Course c) {
         // remove "this" student from the course
+        if (c.removeStudent(this))
+        {
+            this.courses.remove(c);
+            return true;
+        }
         // implement your code here!!!
-
         return false;
     }
 
@@ -87,9 +91,8 @@ public class Student {
         // Information on course(s) which this student has enrolled.
         for (int i=0; i<courses.getSize(); i++) {
             Course c = (Course)courses.elementAt(i);
-
-            // implement your code here!!!
-            o += "\n\tshow course information here...";
+            // implement your code here!!! :: 269202 - Algorithm for ISNE
+            o += c.getCourse_id()+" - "+c.getCourse_name();
         }
 
         return o;
