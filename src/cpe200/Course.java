@@ -24,6 +24,7 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+         this.enrolled=new PList();
     }
 
     public boolean enrollStudent(Student s) {
@@ -36,21 +37,42 @@ public class Course {
             // print message and return value accordingly
 
             // implement your code here!!!
-
+            if(getNo_students()>getMax_students())
+                return false;
+            if(enrolled.found(s))
+                return false;
+            else {
+                enrolled.pushToTail(s);
+            this.no_students++;
+                return true;
+            }
         } else {
+            System.out.print("Error");
+            return false;
             // print error message, and return value accordingly
             // implement your code here!!!
         }
 
-        return false;
+
 
     }
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
-
+        if(no_students!=0){
+            if(getNo_students()>getMax_students())
+                return false;
+            if(enrolled.found(s))
+            {
+                enrolled.remove(s);
+                this.no_students--;
+                return true;
+            }
+        }
+        System.out.print("Error");
         return false;
     }
+
 
     public String getCourse_name() {
         return course_name;
@@ -128,7 +150,7 @@ public class Course {
     private String lecturer;
     private int max_students;
     private int no_students;
-
+    private PList enrolled;
     // add a list of enrolled students
     // implement your code here!!!
 
