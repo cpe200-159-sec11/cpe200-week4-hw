@@ -25,7 +25,9 @@ public class Student {
     }
 
     public boolean addCourse(Course c) {
-        if (c.enrollStudent(this)) {    // enroll the course with "this" student object
+        if (c.enrollStudent(this)) {
+            courses.pushToHead(c);
+            // enroll the course with "this" student object
             // add the new course to the list of enrolled courses (PList)
             // implement your code here!!!
 
@@ -35,6 +37,13 @@ public class Student {
     }
 
     public boolean dropCourse(Course c) {
+        if(c.removeStudent(this)){
+            if(courses.remove(c)){
+                return true;
+            }else{
+                return false;
+            }
+        }
         // remove "this" student from the course
         // implement your code here!!!
 
@@ -85,11 +94,11 @@ public class Student {
             o = o + "is an INACTIVE student.";
 
         // Information on course(s) which this student has enrolled.
-        for (int i=0; i<courses.getSize(); i++) {
+        for (int i=0; i< courses.getSize(); i++) {
             Course c = (Course)courses.elementAt(i);
-
+            System.out.println("Course id: " + c.getCourse_id() + " Course name: " + c.getCourse_name());
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            //o += "\n\t " + c;
         }
 
         return o;
