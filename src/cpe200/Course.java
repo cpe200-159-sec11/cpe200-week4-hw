@@ -24,11 +24,16 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        this.student = new PList();
     }
 
     public boolean enrollStudent(Student s) {
-
         if (this.no_students < this.max_students) {
+            if(student.found(s)){
+                return false;
+            }else{
+                student.pushToHead(s);
+            }
             // check if the course is FULL
             // check if the student has ALREADY enrolled in this course
             // add the student to the list of students (PList)
@@ -38,18 +43,22 @@ public class Course {
             // implement your code here!!!
 
         } else {
+            System.out.println("This student: " + s.getName() +  " id: " + s.getStudent_id() +" Can't enroll student because Student in this course is Full");
+            return false;
             // print error message, and return value accordingly
             // implement your code here!!!
         }
-
-        return false;
-
+        this.no_students++;
+        return true;
     }
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
-
-        return false;
+        if(student.remove(s)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getCourse_name() {
@@ -106,10 +115,12 @@ public class Course {
             o += this.no_students + " students, ";
 
         o += "[maximum: " + this.max_students + "]";
-
+        for(int i = 0;i < student.getSize(); i++){
+            Student s = (Student)student.elementAt(i);
+            System.out.println("Student id: " + s.getStudent_id() + " Student name: " + s.getName());
+        }
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
-
         return o;
     }
 
@@ -131,5 +142,5 @@ public class Course {
 
     // add a list of enrolled students
     // implement your code here!!!
-
+    private PList student;
 }
