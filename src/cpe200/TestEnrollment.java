@@ -54,6 +54,8 @@ public class TestEnrollment {
         s[3].dropCourse(cpe200); s[3].dropCourse(cpe102);
         s[8].dropCourse(isne202); s[8].dropCourse(cpe200);
 
+
+
         System.out.println("\n******** After DROP transactions ********");
         for (int i=1; i<9; i++) {
             System.out.println(s[i]);

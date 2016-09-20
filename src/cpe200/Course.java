@@ -23,31 +23,39 @@ public class Course {
         this.no_students = 0;
 
         // initialized the list of enrolled students
-        // implement your code here!!!
+        this.students = new PList();                     //Done!
     }
 
     public boolean enrollStudent(Student s) {
 
-        if (this.no_students < this.max_students) {
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
-            // add the student to the list of students (PList)
+        if (this.no_students < this.max_students) {     // check if the course is FULL
+
+                if(this.students.found(s)==true) { // check if the student has ALREADY enrolled in this course
+                    return false;
+
+                }
+                else{
+                    this.students.pushToTail(s);     //put it in list.
+                    this.no_students++;         //increase num of student.
+
+                    return true;
+                }
+        }
+              // add the student to the list of students (PList)
             // update number of students in the course
             // print message and return value accordingly
-
-            // implement your code here!!!
-
-        } else {
             // print error message, and return value accordingly
             // implement your code here!!!
-        }
-
         return false;
-
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
+
+        if(this.students.found(s)){
+            this.students.remove(s);
+            this.no_students--;
+            return true;
+        }
 
         return false;
     }
@@ -109,7 +117,12 @@ public class Course {
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
+        for (int i=0; i<students.getSize(); i++) {
+            Student s = (Student)students.elementAt(i);
 
+            // implement your code here!!!
+            o += "\n\t" + s.getStudent_id() + " - " + s.getName()  ;
+        }
         return o;
     }
 
@@ -130,6 +143,6 @@ public class Course {
     private int no_students;
 
     // add a list of enrolled students
-    // implement your code here!!!
+    private PList students;
 
 }
