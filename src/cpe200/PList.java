@@ -57,65 +57,58 @@ public class PList {
     }
 
     public boolean remove(Object data) {
-        PNode tmp = head;
-        PNode temp1 = head;
-        PNode temp2 = head;
-        while (tmp != null) {
-            if (tmp.data.equals(data)) {
-                System.out.println(data);
-                if (tmp == head) {
+
+        PNode temp = head, temp2;
+
+        while (temp != null) {
+            if (temp.data.equals(data)) {
+                if(temp == head)
+                {
                     popHead();
+                    return true;
                 }
-                else if (tmp == tail) {
+                else if(temp == tail)
+                {
                     popTail();
+                    return true;
                 }
-                else {
-                    temp1 = tmp.prev;
-                    temp2 = tmp.next;
-                    temp1.next = temp2;
-                    temp2.prev = temp1;
+                else
+                {
+                    temp2 = temp.prev;
+                    temp2.next = temp.next;
+                    temp.next.prev = temp2;
+                    size --;
+                    return true;
                 }
-                size--;
-                return true;
             }
-            tmp = tmp.next;
+            temp = temp.next;
         }
         return false;
     }
+
     public Object elementAt(int index) {
-        // implement your code here!!!
-        // what if index is not in between 0 to (size-1)
-        PNode tmp = head;
-        int count = 0;
-        if(index>size-1 || index <0)
+        PNode temp=head;
+        if(index >= 0 && index<size)
         {
-            return null;
-        }
-        else{
-            while (tmp !=null)
-            {
-                if(count == index)
-                {
-                    break;
-                }
-                count++;
-                tmp = tmp.next;
+            for(int i=0;i<index;i++) {
+                temp = temp.next;
             }
+            return temp.data;
         }
 
-        return tmp.data;
+        return null;
     }
 
     // rename the search method to "found(Object data)"
     public boolean found(Object data) {
-        // implement your code here!!!
-        PNode tmp =head;
-        while (tmp!=null)
+        PNode temp = head;
+        while(temp != null)
         {
-            if (tmp.data.equals(data)) {
+            if(temp.data.equals(data))
+            {
                 return true;
             }
-            tmp = tmp.next;
+            temp = temp.next;
         }
 
         return false;

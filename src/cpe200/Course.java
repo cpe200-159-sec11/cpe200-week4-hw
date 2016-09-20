@@ -5,7 +5,10 @@ import java.util.regex.Pattern;
 
 public class Course {
 
-    public Course() { this("","","",DMAX); }
+    public Course() {
+        this("","","",DMAX);
+
+    }
 
     public Course(String n, String cid) {
         this(n,cid,"",DMAX);
@@ -21,44 +24,43 @@ public class Course {
         this.lecturer = !l.equalsIgnoreCase("")?l:"TBA";
         this.max_students = max<DMAX?DMAX:max;
         this.no_students = 0;
+        this.student = new PList();
 
         // initialized the list of enrolled students
         // implement your code here!!!
-        this.student = new PList();
     }
 
     public boolean enrollStudent(Student s) {
-        if (this.no_students < this.max_students) {
-            if(student.found(s)){
-                return false;
-            }else{
-                student.pushToHead(s);
-            }
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
-            // add the student to the list of students (PList)
-            // update number of students in the course
-            // print message and return value accordingly
 
-            // implement your code here!!!
+        if (this.no_students < this.max_students) {
+            if(student.found(s))
+            {
+                System.out.println(s.getStudent_id() + " has already enrolled in " + getCourse_id() + ".");
+                return false;
+            }
+            else
+            {
+                student.pushToTail(s);
+                this.no_students++;
+                System.out.println(s.getStudent_id() + " has enrolled in " + getCourse_id() + " successfully.");
+                return true;
+            }
 
         } else {
-            System.out.println("This student: " + s.getName() +  " id: " + s.getStudent_id() +" Can't enroll student because Student in this course is Full");
+            System.out.println(s.getStudent_id() + " cannot enroll in this course, " + getCourse_id() + " is full.");
             return false;
-            // print error message, and return value accordingly
-            // implement your code here!!!
         }
-        this.no_students++;
-        return true;
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
-        if(student.remove(s)){
+        if(student.found(s))
+        {
+            student.remove(s);
+            this.no_students--;
             return true;
-        }else{
-            return false;
         }
+
+        return false;
     }
 
     public String getCourse_name() {
@@ -117,7 +119,7 @@ public class Course {
         o += "[maximum: " + this.max_students + "]";
         for(int i = 0;i < student.getSize(); i++){
             Student s = (Student)student.elementAt(i);
-            System.out.println("Student id: " + s.getStudent_id() + " Student name: " + s.getName());
+            o += "\n\t" + s.getStudent_id() + " - " + s.getName();
         }
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
@@ -127,7 +129,6 @@ public class Course {
     private boolean isValidCourse_id(String id) {
         Pattern p = Pattern.compile(idREGEX);
         Matcher m = p.matcher(id);
-
         return m.matches();
     }
 
@@ -139,8 +140,9 @@ public class Course {
     private String lecturer;
     private int max_students;
     private int no_students;
+    private PList student;
 
     // add a list of enrolled students
     // implement your code here!!!
-    private PList student;
+
 }

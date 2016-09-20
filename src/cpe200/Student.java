@@ -37,18 +37,22 @@ public class Student {
     }
 
     public boolean dropCourse(Course c) {
-        if(c.removeStudent(this)){
-            if(courses.remove(c)){
-                return true;
-            }else{
-                return false;
-            }
+        if(courses.found(c))
+        {
+            courses.remove(c);
+            c.removeStudent(this);
+            System.out.println(getStudent_id() + " has been removed from " + c.getCourse_id() + " successfully.");
+            return true;
+        }else
+        {
+            System.out.println(getStudent_id() + " is NOT enrolled in " + c.getCourse_id() + ".");
+            return false;
         }
-        // remove "this" student from the course
-        // implement your code here!!!
-
-        return false;
     }
+    // remove "this" student from the course
+    // implement your code here!!!
+
+
 
     public String getName() {
         return name;
@@ -94,9 +98,12 @@ public class Student {
             o = o + "is an INACTIVE student.";
 
         // Information on course(s) which this student has enrolled.
+
+
         for (int i=0; i< courses.getSize(); i++) {
+
             Course c = (Course)courses.elementAt(i);
-            System.out.println("Course id: " + c.getCourse_id() + " Course name: " + c.getCourse_name());
+            o += "\n\t" + c.getCourse_id() + " - " + c.getCourse_name();
             // implement your code here!!!
             //o += "\n\t " + c;
         }
@@ -121,6 +128,5 @@ public class Student {
     private String student_id;
     private int year_of_birth;
     private boolean isActive;
-
     private PList courses;
 }
