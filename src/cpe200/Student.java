@@ -25,7 +25,9 @@ public class Student {
     }
 
     public boolean addCourse(Course c) {
-        if (c.enrollStudent(this)) {    // enroll the course with "this" student object
+        if (c.enrollStudent(this)) {
+            courses.pushToHead(c);
+            // enroll the course with "this" student object
             // add the new course to the list of enrolled courses (PList)
             // implement your code here!!!
 
@@ -35,11 +37,22 @@ public class Student {
     }
 
     public boolean dropCourse(Course c) {
-        // remove "this" student from the course
-        // implement your code here!!!
-
-        return false;
+        if(courses.found(c))
+        {
+            courses.remove(c);
+            c.removeStudent(this);
+            System.out.println(getStudent_id() + " has been removed from " + c.getCourse_id() + " successfully.");
+            return true;
+        }else
+        {
+            System.out.println(getStudent_id() + " is NOT enrolled in " + c.getCourse_id() + ".");
+            return false;
+        }
     }
+    // remove "this" student from the course
+    // implement your code here!!!
+
+
 
     public String getName() {
         return name;
@@ -85,11 +98,14 @@ public class Student {
             o = o + "is an INACTIVE student.";
 
         // Information on course(s) which this student has enrolled.
-        for (int i=0; i<courses.getSize(); i++) {
-            Course c = (Course)courses.elementAt(i);
 
+
+        for (int i=0; i< courses.getSize(); i++) {
+
+            Course c = (Course)courses.elementAt(i);
+            o += "\n\t" + c.getCourse_id() + " - " + c.getCourse_name();
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            //o += "\n\t " + c;
         }
 
         return o;
@@ -112,6 +128,5 @@ public class Student {
     private String student_id;
     private int year_of_birth;
     private boolean isActive;
-
     private PList courses;
 }

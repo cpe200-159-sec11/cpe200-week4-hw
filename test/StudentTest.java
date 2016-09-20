@@ -1,5 +1,5 @@
-package cpe200;
-
+import cpe200.Course;
+import cpe200.Student;
 import org.junit.Before;
 import org.junit.Test;
 
