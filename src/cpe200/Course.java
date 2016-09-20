@@ -21,14 +21,23 @@ public class Course {
         this.lecturer = !l.equalsIgnoreCase("")?l:"TBA";
         this.max_students = max<DMAX?DMAX:max;
         this.no_students = 0;
-
+        students = new PList();
         // initialized the list of enrolled students
         // implement your code here!!!
     }
 
     public boolean enrollStudent(Student s) {
-
         if (this.no_students < this.max_students) {
+            if(!this.students.found(s)) {
+                System.out.println(s.getStudent_id()+" has enrolled in "+getCourse_id()+" successfully.");
+                this.students.pushToTail(s);
+                this.no_students++;
+                return true;
+            }else
+            {
+                System.out.println(s.getStudent_id()+" has already enrolled in "+getCourse_id()+".");
+                return false;
+            }
             // check if the course is FULL
             // check if the student has ALREADY enrolled in this course
             // add the student to the list of students (PList)
@@ -40,16 +49,26 @@ public class Course {
         } else {
             // print error message, and return value accordingly
             // implement your code here!!!
+            System.out.println(s.getStudent_id()+" cannot enroll in this course, "+getCourse_id()+" is full.");
+            return false;
         }
 
-        return false;
+
 
     }
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
 
-        return false;
+            if (students.remove(s)) {
+                //System.out.println(s.getStudent_id()+" has been removed from "+this.getCourse_id()+" successfully.");
+                this.no_students--;
+                return true;
+            }
+            else {
+                // System.out.println(s.getStudent_id() + " is NOT enrolled in " + this.getCourse_id());
+                return false;
+            }
     }
 
     public String getCourse_name() {
@@ -109,7 +128,12 @@ public class Course {
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
-
+        for (int i=0; i<students.getSize(); i++) {
+            Student c = (Student) students.elementAt(i);
+            o += "\n    "+c.getStudent_id() +" - "+c.getName();
+            // implement your code here!!!
+            //o += "\n\tshow course information here...";
+        }
         return o;
     }
 
@@ -129,6 +153,7 @@ public class Course {
     private int max_students;
     private int no_students;
 
+    private PList students;
     // add a list of enrolled students
     // implement your code here!!!
 
