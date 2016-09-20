@@ -57,31 +57,65 @@ public class PList {
     }
 
     public boolean remove(Object data) {
-
         PNode tmp = head, tmp2;
+        if(found(data))
+        {
+            while (tmp != null) {
+                if (tmp.data.equals(data)) {
+                    if(tmp == head) // case 1: head of the list
+                    {
+                        popHead();
+                    }
+                    else if(tmp == tail) // case 2: tail of the list
+                    {
+                        popTail();
+                    }
+                    else // case 3: somewhere in the middle
+                    {
+                        tmp2 = tmp.prev;
+                        tmp2.next = tmp.next;
+                        tmp.next = null;
+                        tmp.prev = null;
+                        size--;
+                    }
 
-        while (tmp != null) {
-            if (tmp.data.equals(data)) {
-                // implement your code here!!!
-                // case 1: head of the list
-                // case 2: tail of the list
-                // case 3: somewhere in the middle
+                    return true;
+                }
+                tmp = tmp.next;
             }
-            tmp = tmp.next;
         }
+
         return false;
     }
 
     public Object elementAt(int index) {
-        // implement your code here!!!
         // what if index is not in between 0 to (size-1)
+        PNode tmp = head;
+        int size = 0;
+        while (tmp != null)
+        {
+            if(size == index)
+            {
+                return tmp.data;
+            }
+            tmp = tmp.next;
+            size++;
+        }
 
         return null;
     }
 
     // rename the search method to "found(Object data)"
     public boolean found(Object data) {
-        // implement your code here!!!
+        PNode tmp = head;
+        while (tmp != null)
+        {
+            if (tmp.data.equals(data))
+            {
+                return true;
+            }
+            tmp = tmp.next;
+        }
 
         return false;
     }

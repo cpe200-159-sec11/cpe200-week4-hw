@@ -28,6 +28,7 @@ public class Student {
         if (c.enrollStudent(this)) {    // enroll the course with "this" student object
             // add the new course to the list of enrolled courses (PList)
             // implement your code here!!!
+            courses.pushToTail(c);
 
             return true;
         } else
@@ -37,7 +38,12 @@ public class Student {
     public boolean dropCourse(Course c) {
         // remove "this" student from the course
         // implement your code here!!!
-
+        if(courses.remove(c))
+        {
+            System.out.print(this.student_id + " has been removed from " + c.getCourse_id() + " successfully.\n");
+            return c.removeStudent(this);
+        }
+        System.out.print(this.student_id + " is NOT enrolled in " + c.getCourse_id() + ".\n");
         return false;
     }
 
@@ -89,7 +95,8 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            o += "\n\t" + c.getCourse_id() + " - " + c.getCourse_name();
+            //o += "\n\tshow course information here...";
         }
 
         return o;

@@ -24,6 +24,7 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        this.students = new PList();
     }
 
     public boolean enrollStudent(Student s) {
@@ -36,19 +37,34 @@ public class Course {
             // print message and return value accordingly
 
             // implement your code here!!!
+            if (!students.found(s))
+            {
+                students.pushToTail(s);
+                this.no_students++;
+                System.out.print(s.getStudent_id() + " has enrolled in " + this.course_id + " successfully.\n");
+                return true;
+            }
+            else
+            {
+                System.out.print(s.getStudent_id() + " has already enrolled in " + this.course_id + ".\n");
+                return false;
+            }
 
         } else {
             // print error message, and return value accordingly
             // implement your code here!!!
+            System.out.print(s.getStudent_id() + " cannot enroll in this course, " + this.course_id + " is full.\n");
+            return false;
         }
-
-        return false;
-
     }
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
-
+        if(students.remove(s))
+        {
+            this.no_students--;
+            return true;
+        }
         return false;
     }
 
@@ -109,6 +125,11 @@ public class Course {
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
+        for (int i=0; i<students.getSize(); i++) {
+            Student s = (Student) students.elementAt(i);
+
+            o += "\n\t" + s.getStudent_id() + " - " + s.getName();
+        }
 
         return o;
     }
@@ -130,6 +151,6 @@ public class Course {
     private int no_students;
 
     // add a list of enrolled students
-    // implement your code here!!!
-
+    // implement your code here!!
+    private PList students;
 }
