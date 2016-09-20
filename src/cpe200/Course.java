@@ -7,17 +7,17 @@ import java.util.regex.Pattern;
 public class Course {
 
     public Course() { this("","","",DMAX);
-        studentArrayList = new ArrayList<Student>();
+        studentArrayList = new PList();
     }
 
     public Course(String n, String cid) {
         this(n,cid,"",DMAX);
-        studentArrayList = new ArrayList<Student>();
+        studentArrayList = new PList();
     }
 
     public Course(String n, String cid, String l) {
         this(n,cid,l,DMAX);
-        studentArrayList = new ArrayList<Student>();
+        studentArrayList = new PList();
     }
 
     public Course(String n, String cid, String l, int max) {
@@ -26,14 +26,23 @@ public class Course {
         this.lecturer = !l.equalsIgnoreCase("")?l:"TBA";
         this.max_students = max<DMAX?DMAX:max;
         this.no_students = 0;
-        studentArrayList = new ArrayList<Student>();
+        studentArrayList = new PList();
+
+        // initialized the list of enrolled students
+        // implement your code here!!!
     }
 
     public boolean enrollStudent(Student s) {
 
         if (this.no_students < this.max_students) {
-                if(!studentArrayList.contains(s)){
-                    studentArrayList.add(s);
+            // check if the course is FULL
+            // check if the student has ALREADY enrolled in this course
+            // add the student to the list of students (PList)
+            // update number of students in the course
+            // print message and return value accordingly
+
+                if(!studentArrayList.found(s)){
+                    studentArrayList.pushToTail(s);
                     this.no_students++;
                     System.out.println(s.getStudent_id()+" has enrolled in "+this.course_id+" successfully.");
                     return true;
@@ -52,7 +61,7 @@ public class Course {
     }
 
     public boolean removeStudent(Student s) {
-        if(studentArrayList.contains(s)) {
+        if(studentArrayList.found(s)) {
             studentArrayList.remove(s);
             this.no_students--;
             return true;
@@ -120,7 +129,8 @@ public class Course {
         if(!studentArrayList.isEmpty())
         {
             for(int i=0; i<this.no_students; i++) {
-                o+="\n\t"+studentArrayList.get(i).getStudent_id()+" - "+studentArrayList.get(i).getName();
+                Student sx = (Student)studentArrayList.elementAt(i);
+                o+="\n\t"+sx.getStudent_id()+" - "+sx.getName();
             }
         }
 
@@ -143,6 +153,7 @@ public class Course {
     private int max_students;
     private int no_students;
 
-    private ArrayList<Student> studentArrayList;
+    // add a list of enrolled students
+    private PList studentArrayList;
 
 }
