@@ -1,18 +1,23 @@
 package cpe200;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Course {
 
-    public Course() { this("","","",DMAX); }
+    public Course() { this("","","",DMAX);
+        studentArrayList = new PList();
+    }
 
     public Course(String n, String cid) {
         this(n,cid,"",DMAX);
+        studentArrayList = new PList();
     }
 
     public Course(String n, String cid, String l) {
         this(n,cid,l,DMAX);
+        studentArrayList = new PList();
     }
 
     public Course(String n, String cid, String l, int max) {
@@ -21,6 +26,7 @@ public class Course {
         this.lecturer = !l.equalsIgnoreCase("")?l:"TBA";
         this.max_students = max<DMAX?DMAX:max;
         this.no_students = 0;
+        studentArrayList = new PList();
 
         // initialized the list of enrolled students
         // implement your code here!!!
@@ -35,21 +41,34 @@ public class Course {
             // update number of students in the course
             // print message and return value accordingly
 
-            // implement your code here!!!
+                if(!studentArrayList.found(s)){
+                    studentArrayList.pushToTail(s);
+                    this.no_students++;
+                    System.out.println(s.getStudent_id()+" has enrolled in "+this.course_id+" successfully.");
+                    return true;
+                }
+                else {
+                    System.out.println(s.getStudent_id()+" has already enrolled in "+this.course_id+".");
+                    return false;
+                }
 
-        } else {
-            // print error message, and return value accordingly
-            // implement your code here!!!
         }
-
-        return false;
+        else {
+            System.out.println(s.getStudent_id()+" cannot enroll in this course, "+this.course_id+" is full.");
+            return false;
+        }
 
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
-
-        return false;
+        if(studentArrayList.found(s)) {
+            studentArrayList.remove(s);
+            this.no_students--;
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public String getCourse_name() {
@@ -107,8 +126,13 @@ public class Course {
 
         o += "[maximum: " + this.max_students + "]";
 
-        // Information on student(s) who has enrolled in this course
-        // implement your code here!!!
+        if(!studentArrayList.isEmpty())
+        {
+            for(int i=0; i<this.no_students; i++) {
+                Student sx = (Student)studentArrayList.elementAt(i);
+                o+="\n\t"+sx.getStudent_id()+" - "+sx.getName();
+            }
+        }
 
         return o;
     }
@@ -130,6 +154,6 @@ public class Course {
     private int no_students;
 
     // add a list of enrolled students
-    // implement your code here!!!
+    private PList studentArrayList;
 
 }
