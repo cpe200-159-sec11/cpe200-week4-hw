@@ -57,7 +57,6 @@ public class PList {
     }
 
     public boolean remove(Object data) {
-
         PNode tmp = head, tmp2;
         if(found(data)) {
             while (tmp != null) {
