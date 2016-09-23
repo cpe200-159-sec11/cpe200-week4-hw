@@ -58,30 +58,58 @@ public class PList {
 
     public boolean remove(Object data) {
 
-        PNode tmp = head, tmp2;
+        PNode temp = head, temp2;
 
-        while (tmp != null) {
-            if (tmp.data.equals(data)) {
-                // implement your code here!!!
-                // case 1: head of the list
-                // case 2: tail of the list
-                // case 3: somewhere in the middle
+        while (temp != null) {
+            if (temp.data.equals(data)) {
+                if(temp == head)
+                {
+                    popHead();
+                    return true;
+                }
+                else if(temp == tail)
+                {
+                    popTail();
+                    return true;
+                }
+                else
+                {
+                    temp2 = temp.prev;
+                    temp2.next = temp.next;
+                    temp.next.prev = temp2;
+                    size --;
+                    return true;
+                }
             }
-            tmp = tmp.next;
+            temp = temp.next;
         }
         return false;
     }
 
     public Object elementAt(int index) {
-        // implement your code here!!!
-        // what if index is not in between 0 to (size-1)
+        PNode temp=head;
+        if(index >= 0 && index<size)
+        {
+            for(int i=0;i<index;i++) {
+                temp = temp.next;
+            }    
+            return temp.data;
+        }
 
         return null;
     }
 
     // rename the search method to "found(Object data)"
     public boolean found(Object data) {
-        // implement your code here!!!
+        PNode temp = head;
+        while(temp != null)
+        {
+            if(temp.data.equals(data))
+            {
+                return true;
+            }
+            temp = temp.next;
+        }
 
         return false;
     }
