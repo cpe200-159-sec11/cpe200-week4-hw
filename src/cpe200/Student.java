@@ -19,26 +19,30 @@ public class Student {
         this.student_id = isValidStudent_id(id)?id:"560610000";
         this.year_of_birth = isValidYOB(yob)?yob:1990;
         this.isActive = ia;
-
         // initialized the list for enrolled courses
         this.courses = new PList();
     }
 
     public boolean addCourse(Course c) {
         if (c.enrollStudent(this)) {    // enroll the course with "this" student object
-            // add the new course to the list of enrolled courses (PList)
-            // implement your code here!!!
-
+            courses.pushToTail(c);
             return true;
         } else
             return false;               // if unable to enroll a student
     }
 
     public boolean dropCourse(Course c) {
-        // remove "this" student from the course
-        // implement your code here!!!
-
+    if(courses.found(c))
+    {
+        courses.remove(c);
+        c.removeStudent(this);
+        System.out.println(this.getStudent_id()+" has been removed from "+c.getCourse_id() +" successfully.");
+        return true;
+    }
+    else {
+        System.out.println(this.getStudent_id()+" is NOT enrolled in "+c.getCourse_id() +".");
         return false;
+    }
     }
 
     public String getName() {
@@ -89,7 +93,7 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            o += "\n\t" + c.getCourse_id() + " - " + c.getCourse_name();
         }
 
         return o;
