@@ -93,7 +93,10 @@ public class Student {
             Course c = (Course)courses.elementAt(i);
 
             // implement your code here!!!
-            o += "\n\tshow course information here...";
+            o += "\n\t" + c.getCourse_name() + "("
+                    + c.getCourse_id() + "), Teacher: " +
+                    c.getLecturer() + ", has" + c.getNo_students() +
+                    ", [maximum: " + c.getMax_students() + "]";
         }
 
         return o;

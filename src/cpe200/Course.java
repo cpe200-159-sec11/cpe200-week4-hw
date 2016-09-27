@@ -38,19 +38,19 @@ public class Course {
 
             // implement your code here!!!
             if (students.found(s)){
-                System.out.println("has already enrolled");
+                System.out.println(s.getStudent_id() + " has already enrolled in " + course_id + ".");
                 return false;
             }else {
                 students.pushToTail(s);
                 no_students++;
-                System.out.println("has enrolled successfully");
+                System.out.println(s.getStudent_id() + " has enrolled in " + course_id + "successfully.");
                 return true;
             }
 
         } else {
             // print error message, and return value accordingly
             // implement your code here!!!
-            System.out.println("ERROR");
+            System.out.println(s.getStudent_id() + " cannot enroll in this course, " + course_id + " is fully.");
             return false;
         }
     }
@@ -58,11 +58,11 @@ public class Course {
     public boolean removeStudent(Student s) {
         // implement your code here!!!
         if (students.remove(s)){
-            System.out.println("has been removed successfully");
+            System.out.println(s.getStudent_id() + " has been removed from " + course_id + "successfully.");
             no_students--;
             return true;
         }else {
-            System.out.println("NOT enrolled in this course");
+            System.out.println(s.getStudent_id() + " is NOT enrolled in " + course_id + ".");
             return false;
         }
     }
@@ -124,6 +124,11 @@ public class Course {
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
+        for (int i=0; i<students.getSize(); i++){
+            Student s = (Student)students.elementAt(i);
+
+            o += "\n\t" + s.getStudent_id() + " - " + s.getName();
+        }
 
         return o;
     }
