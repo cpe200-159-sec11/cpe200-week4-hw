@@ -24,6 +24,7 @@ public class Course {
 
         // initialized the list of enrolled students
         // implement your code here!!!
+        this.students = new PList();
     }
 
     public boolean enrollStudent(Student s) {
@@ -36,20 +37,34 @@ public class Course {
             // print message and return value accordingly
 
             // implement your code here!!!
+            if (students.found(s)){
+                System.out.println(s.getStudent_id() + " has already enrolled in " + course_id + ".");
+                return false;
+            }else {
+                students.pushToTail(s);
+                no_students++;
+                System.out.println(s.getStudent_id() + " has enrolled in " + course_id + "successfully.");
+                return true;
+            }
 
         } else {
             // print error message, and return value accordingly
             // implement your code here!!!
+            System.out.println(s.getStudent_id() + " cannot enroll in this course, " + course_id + " is fully.");
+            return false;
         }
-
-        return false;
-
     }
 
     public boolean removeStudent(Student s) {
         // implement your code here!!!
-
-        return false;
+        if (students.remove(s)){
+            System.out.println(s.getStudent_id() + " has been removed from " + course_id + "successfully.");
+            no_students--;
+            return true;
+        }else {
+            System.out.println(s.getStudent_id() + " is NOT enrolled in " + course_id + ".");
+            return false;
+        }
     }
 
     public String getCourse_name() {
@@ -109,6 +124,11 @@ public class Course {
 
         // Information on student(s) who has enrolled in this course
         // implement your code here!!!
+        for (int i=0; i<students.getSize(); i++){
+            Student s = (Student)students.elementAt(i);
+
+            o += "\n\t" + s.getStudent_id() + " - " + s.getName();
+        }
 
         return o;
     }
@@ -131,5 +151,6 @@ public class Course {
 
     // add a list of enrolled students
     // implement your code here!!!
+    private PList students;
 
 }
