@@ -23,23 +23,33 @@ public class Course {
         this.no_students = 0;
 
         // initialized the list of enrolled students
+
+
         // implement your code here!!!
+
+
     }
 
     public boolean enrollStudent(Student s) {
 
         if (this.no_students < this.max_students) {
-            // check if the course is FULL
-            // check if the student has ALREADY enrolled in this course
             // add the student to the list of students (PList)
             // update number of students in the course
             // print message and return value accordingly
+            if (listStudent.found(s)) {
+                System.out.println("ALREADY enrolled in this course!");
+                return false;
+            } else {
+                listStudent.pushToTail(s);
+                s.addCourse(this);
+                no_students++;
 
-            // implement your code here!!!
+                return true;
+            }
+
 
         } else {
-            // print error message, and return value accordingly
-            // implement your code here!!!
+            System.out.println("FULL!");
         }
 
         return false;
@@ -47,7 +57,13 @@ public class Course {
     }
 
     public boolean removeStudent(Student s) {
-        // implement your code here!!!
+        // implement your code here!!
+        if (listStudent.remove(s)) {
+            s.dropCourse(this);
+            no_students--;
+
+            return true;
+        }
 
         return false;
     }
@@ -129,6 +145,7 @@ public class Course {
     private int max_students;
     private int no_students;
 
+    PList listStudent = new PList();
     // add a list of enrolled students
     // implement your code here!!!
 
